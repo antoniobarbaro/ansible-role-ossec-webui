@@ -26,9 +26,21 @@
   unarchive:
     src=/root/0.9.tar.gz
     dest=/var/www/html/
-    creates=/var/www/html/ossec-wui-0.9
+    group=apache
+    owner=apache
     copy=no
   notify: start httpd
+
+
+- name: rename to ossec-wui
+  command: mv /var/www/html/ossec-wui-0.9 /var/www/html/ossec-wui
+
+- name: create tmp directory
+  file:
+    path: /var/www/html/ossec-wui/tmp
+    state: directory
+    group: apache
+    owner: apache
 
 
 - name: create directory ossec-wui for targeted selinux
