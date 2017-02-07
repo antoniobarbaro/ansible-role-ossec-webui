@@ -14,13 +14,15 @@
     groups: ossec
     append: yes
 
-
-
 - name: download ossec-wui
   get_url:
     url: https://github.com/ossec/ossec-wui/archive/0.9.tar.gz
     dest: /root/0.9.tar.gz
 
+- name: remove ossec-wui directory
+  file: 
+    path: /var/www/html/ossec-wui
+    state: absent
 
 - name: extract ossec-wui
   unarchive:
@@ -48,6 +50,12 @@
     path: /etc/selinux/targeted/ossec-wui
     state: directory
 
+- name: change php default timezone
+  lineinfile:
+    dest: /etc/php.ini
+    regexp: '^;?date\.timezone'
+    line: 'date.timezone = Europe/Rome'
+  notify: restarted httpd
 
 - name: copy ossec-wui targeted policy for selinux
   copy:
