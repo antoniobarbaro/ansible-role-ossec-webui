@@ -21,7 +21,7 @@
 
 - name: remove ossec-wui directory
   file: 
-    path: /var/www/html/ossec-wui
+    path: "/var/www/html/{{ ossec_webui_site_name }}"
     state: absent
 
 - name: extract ossec-wui
@@ -35,11 +35,11 @@
 
 
 - name: rename to ossec-wui
-  command: mv /var/www/html/ossec-wui-0.9 /var/www/html/ossec-wui
+  command: "mv /var/www/html/ossec-wui-0.9 /var/www/html/{{ ossec_webui_site_name }}"
 
 - name: create tmp directory
   file:
-    path: /var/www/html/ossec-wui/tmp
+    path: "/var/www/html/{{ ossec_webui_site_name }}/tmp"
     state: directory
     group: apache
     owner: apache
