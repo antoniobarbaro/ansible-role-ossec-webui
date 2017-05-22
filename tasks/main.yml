@@ -86,3 +86,31 @@
 - name: disable selinux
   selinux:
     state: disabled
+
+- name: copy .htaccess file
+  copy:
+    src: files/.htaccess
+    dest: /var/www/html/cassia/.htaccess
+    owner: apache
+    group: apache
+  when: ossec_webui_password_active
+
+- name: Install python-passlib
+  yum: state=latest name=python-passlib
+
+- name: add admin user to password file
+  htpasswd:
+    path: /var/www/html/cassia/passwords-cassia
+    name: admin
+    password: '{{ ossec_webui_password }}'
+    owner: apache
+    group: apache
+
+
+- name: copy cassia.conf file for httpd.conf overriding
+  copy:
+    src: files/cassia.conf
+    dest: /etc/httpd/conf.d/cassia.conf
+    owner: apache
+    group: apache
+  notify: restarted httpd  
