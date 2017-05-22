@@ -114,3 +114,9 @@
     owner: apache
     group: apache
   notify: restarted httpd  
+
+- name: firewall enable port 80
+  firewalld:
+    port: 80/tcp
+    permanent: true
+    state: enabled  
