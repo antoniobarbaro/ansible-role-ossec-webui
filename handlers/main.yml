@@ -10,3 +10,7 @@
 - name: restarted httpd
   service: name=httpd
            state=restarted
+
+- name: restarted firewalld
+  service: name=firewalld
+           state=restarted

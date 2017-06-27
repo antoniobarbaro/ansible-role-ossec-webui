@@ -101,7 +101,7 @@
 - name: add admin user to password file
   htpasswd:
     path: /var/www/html/cassia/passwords-cassia
-    name: admin
+    name: '{{ ossec_webui_user }}'
     password: '{{ ossec_webui_password }}'
     owner: apache
     group: apache
@@ -120,3 +120,4 @@
     port: 80/tcp
     permanent: true
     state: enabled  
+  notify: restarted firewalld  

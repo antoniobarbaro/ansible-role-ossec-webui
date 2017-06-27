@@ -1,3 +1,4 @@
 ossec_webui_site_name: ossec-wui
+ossec_webui_user: admin
 ossec_webui_password: cambiami
 ossec_webui_password_active: no
