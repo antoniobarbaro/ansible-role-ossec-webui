@@ -115,6 +115,12 @@
     group: apache
   notify: restarted httpd  
 
+- name: change php execution time
+  lineinfile:
+    path: /etc/php.ini
+    regexp: '^max_execution_time'
+    line: 'max_execution_time = {{ ossec_webui_php_max_execution_time }}'
+  
 - name: firewall enable port 80
   firewalld:
     port: 80/tcp
